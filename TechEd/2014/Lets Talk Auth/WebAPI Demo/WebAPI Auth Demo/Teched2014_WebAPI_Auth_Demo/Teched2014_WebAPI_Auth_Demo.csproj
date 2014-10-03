@@ -176,9 +176,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ACustomCode\Jwt\JWTConfig.cs" />
+    <Compile Include="ACustomCode\Jwt\JWTExtension.cs" />
+    <Compile Include="ACustomCode\Jwt\JWTHandler.cs" />
+    <Compile Include="ACustomCode\Jwt\JWTMiddleware.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -288,6 +291,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ACustomCode\Middleware\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
