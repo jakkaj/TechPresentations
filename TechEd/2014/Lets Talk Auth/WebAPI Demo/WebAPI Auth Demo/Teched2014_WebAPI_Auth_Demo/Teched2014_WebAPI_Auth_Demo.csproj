@@ -176,6 +176,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ACustomCode\AuthFilter\XAuthFilter.cs" />
     <Compile Include="ACustomCode\Middleware\JWTConfig.cs" />
     <Compile Include="ACustomCode\Middleware\JWTExtension.cs" />
     <Compile Include="ACustomCode\Middleware\JWTHandler.cs" />
