@@ -1,8 +1,7 @@
-﻿
-using Microsoft.Owin.Extensions;
+﻿using Microsoft.Owin.Extensions;
 using Owin;
 
-namespace Teched2014_WebAPI_Auth_Demo.ACustomCode.Jwt
+namespace Teched2014_WebAPI_Auth_Demo.ACustomCode.Middleware
 {
     public static class JWTExtension
     {

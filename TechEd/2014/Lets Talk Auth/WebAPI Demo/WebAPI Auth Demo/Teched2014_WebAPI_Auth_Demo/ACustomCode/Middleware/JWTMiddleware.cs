@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using Microsoft.Owin.Security.Infrastructure;
 
-namespace Teched2014_WebAPI_Auth_Demo.ACustomCode.Jwt
+namespace Teched2014_WebAPI_Auth_Demo.ACustomCode.Middleware
 {
     public class JWTMiddleware : AuthenticationMiddleware<JWTConfig>
     {

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 
-namespace Teched2014_WebAPI_Auth_Demo.ACustomCode.Jwt
+namespace Teched2014_WebAPI_Auth_Demo.ACustomCode.Middleware
 {
     public class JWTHandler : AuthenticationHandler<JWTConfig>
     {
