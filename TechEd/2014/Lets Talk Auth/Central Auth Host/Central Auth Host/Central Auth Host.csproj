@@ -43,6 +43,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -87,6 +102,17 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -141,6 +167,46 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="XamlingCore.Portable.Contract">
+      <HintPath>..\packages\XamlingCore.2.0.50\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Contract.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Data">
+      <HintPath>..\packages\XamlingCore.2.0.50\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Glue">
+      <HintPath>..\packages\XamlingCore.2.0.50\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Glue.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Messages">
+      <HintPath>..\packages\XamlingCore.2.0.50\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Messages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Model">
+      <HintPath>..\packages\XamlingCore.2.0.50\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Model.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Net">
+      <HintPath>..\packages\XamlingCore.2.0.50\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Service">
+      <HintPath>..\packages\XamlingCore.2.0.50\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Service.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Util">
+      <HintPath>..\packages\XamlingCore.2.0.50\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Util.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.View">
+      <HintPath>..\packages\XamlingCore.2.0.50\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.View.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="XamlingCore.XamarinThings">
+      <HintPath>..\packages\XamlingCore.2.0.50\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.XamarinThings.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -168,12 +234,17 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Auth\AspNetIdentityClaimsGetter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Glue\Modules\Auth.cs" />
+    <Compile Include="Glue\Modules\ModelAutoRegister.cs" />
+    <Compile Include="Glue\Modules\WebModule.cs" />
+    <Compile Include="Glue\ProjectGlue.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -209,7 +280,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -254,6 +327,24 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
+      <Project>{5D82E8D1-FFA6-45E7-97F9-FE9EE8BEC499}</Project>
+      <Name>Auth.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.Entity\Auth.Entity.csproj">
+      <Project>{C4AD0E81-5109-4E5A-BC08-2E5345516C72}</Project>
+      <Name>Auth.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.Service\Auth.Service.csproj">
+      <Project>{9C300491-D1C2-4DF7-84BE-BAA6EE8C93F7}</Project>
+      <Name>Auth.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web.Extras\Web.Extras.csproj">
+      <Project>{B86D14D7-A816-4FDD-92F6-2304440CACE5}</Project>
+      <Name>Web.Extras</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -282,6 +373,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

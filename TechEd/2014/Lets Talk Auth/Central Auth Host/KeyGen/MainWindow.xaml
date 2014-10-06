@@ -1,0 +1,15 @@
+﻿<Window x:Class="KeyGen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <StackPanel>
+            <Button Width="100" Height="100" Content="Generate yo" x:Name="GenerateKeys" Click="GenerateKeys_OnClick"/>
+            <Label Content="Public"></Label>
+            <TextBox x:Name="txtPublicBox" Width="200" Height="200"></TextBox>
+            <Label Content="Private"></Label>
+            <TextBox x:Name="txtPrivateBox"  Width="200" Height="200"></TextBox>
+        </StackPanel>
+      
+    </Grid>
+</Window>
