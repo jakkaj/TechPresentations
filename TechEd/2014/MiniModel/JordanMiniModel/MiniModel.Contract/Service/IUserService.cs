@@ -10,5 +10,6 @@ namespace MiniModel.Contract.Service
     public interface IUserService
     {
         Task<User> GetCurrentUser();
+        Task SetCurrentUser(User u);
     }
 }
