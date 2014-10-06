@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>JordanMiniModel</id>
+	<title>Jordan's MiniModel</title>
+    <version>1.0.0</version>
+    <authors>Jordan Knight</authors>
+    <owners>Jordan Knight</owners>
+    <licenseUrl>http://opensource.org/licenses/MS-PL</licenseUrl>
+    <projectUrl>https://github.com/jakkaj</projectUrl>
+    <iconUrl>http://xamling.net/Media/Images/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The best mini model around</description>
+    <releaseNotes>Contact Jordan @jakkaj jakkaj@xamling.net. </releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>Xamling XamlingCore MVVM Portable Jordan TechEd</tags>
+    <dependencies>
+       <dependency id="Autofac" version="3.5.2" />	  
+    </dependencies>
+  </metadata>
+</package>
