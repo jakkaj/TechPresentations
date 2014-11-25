@@ -82,6 +82,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Auth.Contract\Auth.Contract.csproj">
+      <Project>{5D82E8D1-FFA6-45E7-97F9-FE9EE8BEC499}</Project>
+      <Name>Auth.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auth.Entity\Auth.Entity.csproj">
+      <Project>{C4AD0E81-5109-4E5A-BC08-2E5345516C72}</Project>
+      <Name>Auth.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
