@@ -6,7 +6,7 @@ using MonoTouch.UIKit;
 
 namespace MobileApp.iOS.Step_1
 {
-    public class iOSAlert
+    public class iOSAlert : IAlertDisplayer
     {
         public void DisplayAlert(string title, string message)
         {

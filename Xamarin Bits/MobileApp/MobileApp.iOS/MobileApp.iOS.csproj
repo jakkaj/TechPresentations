@@ -85,6 +85,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MiniModel.Contract\MiniModel.Contract.csproj">
+      <Project>{374365A3-C17E-4E3B-ACE1-3C8C2D665EB8}</Project>
+      <Name>MiniModel.Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\MiniModel.Model\MiniModel.Model.csproj">
       <Project>{B298A4EE-B2E1-4D78-AFEB-D728CF9F277B}</Project>
       <Name>MiniModel.Model</Name>
@@ -122,6 +126,7 @@
     </Reference>
     <Reference Include="System.Reflection" />
     <Reference Include="System.Runtime" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
