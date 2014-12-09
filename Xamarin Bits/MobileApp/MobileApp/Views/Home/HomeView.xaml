@@ -5,8 +5,7 @@
   <StackLayout>
     <Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
     <Button Text="Next page" Command="{Binding NextPageCommand}"/>
-    <Button Text="Names page" Command="{Binding NamesPageCommand}"/>
-    <Button Text="Clowns page" Command="{Binding ClownsPageCommand}"/>
+
   </StackLayout>
 
 </ContentPage>

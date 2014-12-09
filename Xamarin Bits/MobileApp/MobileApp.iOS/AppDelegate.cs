@@ -38,14 +38,14 @@ namespace MobileApp.iOS
 
             Forms.Init();
 
-           _glue = new ProjectGlue();
-            _glue.Init();
-            var page = _glue.Container.Resolve<BasePage>();
+            //_glue = new ProjectGlue();
+            // _glue.Init();
+            // var page = _glue.Container.Resolve<BasePage>();
 
-            window = new UIWindow(UIScreen.MainScreen.Bounds);
+            // window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-            window.RootViewController = page.CreateViewController();
-            window.MakeKeyAndVisible();
+            // window.RootViewController = page.CreateViewController();
+            // window.MakeKeyAndVisible();
 
 
 
@@ -53,9 +53,9 @@ namespace MobileApp.iOS
 
 
             //boot using standard navigation page 
-            //xCore = new XiOSCore<XRootFrame, XNavigationPageTypedViewModel<HomeViewModel>, ProjectGlue>();
-            //xCore.Init();
-           // var c = XLocale.CultureInfo;
+            xCore = new XiOSCore<XRootFrame, XNavigationPageTypedViewModel<HomeViewModel>, ProjectGlue>();
+            xCore.Init();
+            // var c = XLocale.CultureInfo;
 
 
             ////boot using master detail setup
