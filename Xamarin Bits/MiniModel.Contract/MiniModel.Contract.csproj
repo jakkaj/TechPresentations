@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\IPersonService.cs" />
     <Compile Include="Service\ISampleService.cs" />
     <Compile Include="Util\IAlertDisplayer.cs" />
   </ItemGroup>
@@ -100,6 +101,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MiniModel.Entity\MiniModel.Entity.csproj">
+      <Project>{F301B35C-2124-4C9D-9EAE-E06ADD3E1C77}</Project>
+      <Name>MiniModel.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
