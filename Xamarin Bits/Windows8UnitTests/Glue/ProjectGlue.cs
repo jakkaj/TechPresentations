@@ -6,8 +6,10 @@ using XamlingCore.Portable.Glue;
 using XamlingCore.Portable.Glue.Glue;
 using XamlingCore.Portable.Glue.Locale;
 using Autofac;
+using Autofac.Core;
 using XamlingCore.Portable.Contract.Infrastructure.LocalStorage;
 using XamlingCore.Portable.Contract.Network;
+using XamlingCore.Portable.Data.Glue;
 using XamlingCore.Windows8.Implementations;
 
 namespace Windows8UnitTests.Glue
@@ -27,8 +29,11 @@ namespace Windows8UnitTests.Glue
             Builder.RegisterModule(new XAutofacModule(modelAssmbly, "Repo"));
 
             Container = Builder.Build();
+
+            ContainerHost.Container = Container;
         }
 
 
     }
+
 }

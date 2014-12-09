@@ -7,6 +7,7 @@ using Windows8UnitTests.Base;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using MiniModel.Contract.Service;
 using MiniModel.Entity;
+using XamlingCore.Portable.Data.Extensions;
 
 namespace Windows8UnitTests.Tests
 {
@@ -26,6 +27,18 @@ namespace Windows8UnitTests.Tests
             var pLoaded = await service.Load(p.Id);
             
             Assert.IsTrue(Object.ReferenceEquals(pSaved, pLoaded));
+
+            var p2 = new Person
+            {
+                Id = p.Id,
+                Age = 21,
+                Name = "Billingsworth Canterburington"
+            };
+
+            p2 = await p2.Set();
+
+            Assert.AreEqual(p.Name, p2.Name);
+            Assert.IsTrue(Object.ReferenceEquals(p, p2));
         } 
     }
 }

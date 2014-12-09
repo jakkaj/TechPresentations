@@ -166,18 +166,37 @@
       <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\win8\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Contract">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Contract.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Portable.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Data">
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Portable.Data.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Glue">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Glue.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Portable.Glue.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Model.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Messages">
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Portable.Messages.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Windows8, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\XamlingCore.2.0.97\lib\win\XamlingCore.Windows8.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Model">
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Portable.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Net">
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Portable.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Service">
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Portable.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Util">
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Portable.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.View">
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Portable.View.dll</HintPath>
+    </Reference>
+    <Reference Include="XamlingCore.Portable.Workflow">
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Portable.Workflow.dll</HintPath>
+    </Reference>
+    <Reference Include="XamlingCore.Windows8">
+      <HintPath>..\packages\XamlingCore.2.0.101\lib\win\XamlingCore.Windows8.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

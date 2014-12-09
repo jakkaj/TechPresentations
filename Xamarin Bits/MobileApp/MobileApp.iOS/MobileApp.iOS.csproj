@@ -139,53 +139,41 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\..\packages\Xamarin.Forms.1.2.3.6257\lib\MonoTouch10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.iOS.dll</HintPath>
+    <Reference Include="XamlingCore.iOS">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.iOS.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.Contract, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.Portable.Contract.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Contract">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.Portable.Contract.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.Portable.Data.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Data">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.Portable.Data.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.Glue, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.Portable.Glue.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Glue">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.Portable.Glue.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.Messages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.Portable.Messages.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Messages">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.Portable.Messages.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.Portable.Model.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Model">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.Portable.Model.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.Portable.Net.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Net">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.Portable.Net.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.Portable.Service.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Service">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.Portable.Service.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.Portable.Util.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Util">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.Portable.Util.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.View, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.Portable.View.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.View">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.Portable.View.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.Portable.Workflow, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.Portable.Workflow.dll</HintPath>
+    <Reference Include="XamlingCore.Portable.Workflow">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.Portable.Workflow.dll</HintPath>
     </Reference>
-    <Reference Include="XamlingCore.XamarinThings, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\XamlingCore.2.0.97\lib\MonoTouch\XamlingCore.XamarinThings.dll</HintPath>
+    <Reference Include="XamlingCore.XamarinThings">
+      <HintPath>..\..\packages\XamlingCore.2.0.101\lib\MonoTouch\XamlingCore.XamarinThings.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
