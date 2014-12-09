@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using MiniModel.Contract.Service;
 using MiniModel.Entity;
 using XamlingCore.Portable.Contract.Entities;
+using XamlingCore.Portable.Data.Extensions;
+using XamlingCore.Portable.Workflow.Stage;
 
 namespace MiniModel.Model.Service
 {
@@ -16,6 +18,41 @@ namespace MiniModel.Model.Service
         public PersonService(IEntityManager<Person> personManager)
         {
             _personManager = personManager;
+        }
+
+        public async Task<XStageResult> PrepareForUpload(Guid id)
+        {
+            await Task.Delay(2000);
+            var p = await _personManager.Get(id);
+
+            if (p == null)
+            {
+                return new XStageResult(false, id, "Could not find person");
+            }
+
+            p.Name += "_wf";
+            
+            await p.Set();
+
+            return new XStageResult(true, id);
+        }
+
+        public async Task<XStageResult> DoUpload(Guid id)
+        {
+            await Task.Delay(2000);
+
+            var p = await _personManager.Get(id);
+
+            if (p == null)
+            {
+                return new XStageResult(false, id, "Could not find person");
+            }
+
+            p.Name += "_wf";
+
+            await p.Set();
+
+            return new XStageResult(true, id);
         }
 
         public async Task<Person> Load(Guid id)
