@@ -35,7 +35,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Entity\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Home\AnotherPageView.model.cs">
       <DependentUpon>AnotherPageView.xaml</DependentUpon>
@@ -137,6 +136,20 @@
   <ItemGroup>
     <Folder Include="Glue\" />
     <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MiniModel.Contract\MiniModel.Contract.csproj">
+      <Project>{374365A3-C17E-4E3B-ACE1-3C8C2D665EB8}</Project>
+      <Name>MiniModel.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MiniModel.Entity\MiniModel.Entity.csproj">
+      <Project>{F301B35C-2124-4C9D-9EAE-E06ADD3E1C77}</Project>
+      <Name>MiniModel.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MiniModel.Model\MiniModel.Model.csproj">
+      <Project>{B298A4EE-B2E1-4D78-AFEB-D728CF9F277B}</Project>
+      <Name>MiniModel.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />

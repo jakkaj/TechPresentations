@@ -1,25 +1,33 @@
 ﻿
 
+using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using MiniModel.Contract.Service;
+using MiniModel.Entity;
+using MiniModel.Model.Workflow;
 using MobileApp.Views.Step_2;
 using Xamarin.Forms;
+using XamlingCore.Portable.Data.Extensions;
 using XamlingCore.Portable.View.ViewModel;
 
 namespace MobileApp.Views.Home
 {
     public class HomeViewModel : XViewModel
     {
+        private readonly IWorkflowService _wfService;
         public string MainText { get; set; }
 
         private List<XViewModel> _items;
 
         public ICommand NextPageCommand { get; set; }
 
-        
 
-        public HomeViewModel()
+
+        public HomeViewModel(IWorkflowService wfService)
         {
+            wfService.SetupFlows();
+            _wfService = wfService;
             MainText = "Jordan was ere.";
             NextPageCommand = new Command(_onNextPage);
         }
@@ -37,8 +45,12 @@ namespace MobileApp.Views.Home
             base.OnInitialise();
         }
 
-        void _onNextPage()
+        async void _onNextPage()
         {
+            var p = new Person { Id = Guid.NewGuid(), Name = "Bob Peringtonton2", Age = 40 };
+            await p.Set(); 
+            await p.StartWorkflow(FlowNames.UploadPerson);
+
             NavigateTo<AnotherPageViewModel>();
         }
 
