@@ -40,6 +40,8 @@ namespace MobileApp.iOS.Glue
                 .AsSelf();
 
 
+
+
             //Samples for more advanced wireup 
             // Builder.RegisterAssemblyTypes(typeof(HomeWelcomeViewModel).Assembly).Where(_ => _.BaseType == typeof(TripodViewModel)).PropertiesAutowired();
 

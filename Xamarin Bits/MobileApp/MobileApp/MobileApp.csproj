@@ -49,6 +49,10 @@
     <Compile Include="Views\Home\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Step 2\FirstView.cs" />
+    <Compile Include="Views\Step 2\FirstView.model.cs" />
+    <Compile Include="Views\Step 2\SecondView.cs" />
+    <Compile Include="Views\Step 2\SecondView.model.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Autofac">

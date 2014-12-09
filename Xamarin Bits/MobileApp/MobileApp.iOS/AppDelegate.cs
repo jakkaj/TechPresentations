@@ -46,6 +46,12 @@ namespace MobileApp.iOS
 
             window.RootViewController = page.CreateViewController();
             window.MakeKeyAndVisible();
+
+
+
+
+
+
             //boot using standard navigation page 
             //xCore = new XiOSCore<XRootFrame, XNavigationPageTypedViewModel<HomeViewModel>, ProjectGlue>();
             //xCore.Init();
