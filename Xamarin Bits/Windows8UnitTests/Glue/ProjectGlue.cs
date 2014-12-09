@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Reflection;
+using Windows8UnitTests.Mock;
 using MiniModel.Model.Service;
 using XamlingCore.Portable.Glue;
 using XamlingCore.Portable.Glue.Glue;
@@ -7,6 +8,7 @@ using XamlingCore.Portable.Glue.Locale;
 using Autofac;
 using XamlingCore.Portable.Contract.Infrastructure.LocalStorage;
 using XamlingCore.Portable.Contract.Network;
+using XamlingCore.Windows8.Implementations;
 
 namespace Windows8UnitTests.Glue
 {

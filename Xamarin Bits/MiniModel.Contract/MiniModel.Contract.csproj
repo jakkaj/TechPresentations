@@ -63,37 +63,37 @@
       <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Contract">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Contract.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Contract.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Data">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Data.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Data.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Glue">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Glue.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Glue.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Messages">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Messages.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Messages.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Model">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Model.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Model.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Net">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Net.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Net.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Service">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Service.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Service.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Util">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Util.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Util.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.View">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.View.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.View.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.Portable.Workflow">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Workflow.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.Portable.Workflow.dll</HintPath>
     </Reference>
     <Reference Include="XamlingCore.XamarinThings">
-      <HintPath>..\packages\XamlingCore.2.0.94\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.XamarinThings.dll</HintPath>
+      <HintPath>..\packages\XamlingCore.2.0.97\lib\portable-windows8+net45+wp8+MonoAndroid+MonoTouch\XamlingCore.XamarinThings.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
