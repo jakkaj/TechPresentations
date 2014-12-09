@@ -79,6 +79,7 @@
     <Compile Include="Glue\ProjectGlue.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Step 1\IAlertDisplayer.cs" />
     <Compile Include="Step 1\iOSAlert.cs" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
