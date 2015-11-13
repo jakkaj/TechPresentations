@@ -69,6 +69,16 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YouCore.Contract\YouCore.Contract.csproj">
+      <Project>{9DDEA24D-303A-4E50-8C1B-4E5D62028775}</Project>
+      <Name>YouCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YouCore.Entity\YouCore.Entity.csproj">
+      <Project>{E34690CB-B576-48CD-911D-E9FD57E9B694}</Project>
+      <Name>YouCore.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

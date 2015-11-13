@@ -13,6 +13,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using YouCore.API.Areas.HelpPage.ModelDescriptions;
 using YouCore.API.Areas.HelpPage.Models;
+using YouCore.API.Areas.HelpPage.SampleGeneration;
 
 namespace YouCore.API.Areas.HelpPage
 {

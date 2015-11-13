@@ -1,5 +1,6 @@
 using System.Web.Http;
 using System.Web.Mvc;
+using YouCore.API.Areas.HelpPage.App_Start;
 
 namespace YouCore.API.Areas.HelpPage
 {
