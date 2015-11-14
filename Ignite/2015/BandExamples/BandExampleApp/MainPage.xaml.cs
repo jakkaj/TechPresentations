@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using BandExampleApp.Model;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -22,9 +23,20 @@ namespace BandExampleApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private YouCore _youCore = new YouCore();
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private async void OnButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            await _youCore.WemoOn();
+        }
+
+        private async void OffButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            await _youCore.WemoOff();
         }
     }
 }
