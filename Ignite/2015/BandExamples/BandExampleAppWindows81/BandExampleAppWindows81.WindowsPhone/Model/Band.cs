@@ -6,6 +6,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Media.Imaging;
+using BandExampleApp.Model;
 using Microsoft.Band;
 using Microsoft.Band.Notifications;
 using Microsoft.Band.Tiles;
@@ -86,23 +87,24 @@ namespace BandExampleAppWindows81.Model
                     Debug.WriteLine($"FW: {fwVersion}");
                     Debug.WriteLine($"HW: {hwVersion}");
 
-                    Guid myTileId = new Guid("13408A60-13EB-46C2-9D24-F14BF6A033C6");
-                    BandTile myTile = new BandTile(myTileId)
+                    Guid myTileId = new Guid("24408A60-13EB-46C2-9D24-F14BF6A033C6");
+
+                    var tiles = await bandClient.TileManager.GetTilesAsync();
+
+                    if (tiles.ToList().FirstOrDefault(_ => _.TileId == myTileId) == null)
                     {
-                        Name = "Demo Tile",
-                        TileIcon = await LoadIcon("ms-appx:///Assets/SampleTileIconLarge.png"),
-                        SmallIcon = await LoadIcon("ms-appx:///Assets/SampleTileIconSmall.png")
-                    };
-                    TextButton button = new TextButton() { ElementId = 1, Rect = new PageRect(10, 10, 200, 90) };
-                    FilledPanel panel = new FilledPanel(button) { Rect = new PageRect(0, 0, 220, 150) };
-                    myTile.PageLayouts.Add(new PageLayout(panel));
-
-                    // Remove the Tile from the Band, if present. An application won't need to do this everytime it runs. 
-                    // But in case you modify this sample code and run it again, let's make sure to start fresh.
-                    await bandClient.TileManager.RemoveTileAsync(myTileId);
-
-                    // Create the Tile on the Band.
-                    await bandClient.TileManager.AddTileAsync(myTile);
+                        BandTile myTile = new BandTile(myTileId)
+                        {
+                            Name = "Demo Tile",
+                            TileIcon = await LoadIcon("ms-appx:///Assets/SampleTileIconLarge.png"),
+                            SmallIcon = await LoadIcon("ms-appx:///Assets/SampleTileIconSmall.png")
+                        };
+                        TextButton button = new TextButton() { ElementId = 1, Rect = new PageRect(10, 10, 200, 90) };
+                        FilledPanel panel = new FilledPanel(button) { Rect = new PageRect(0, 0, 220, 150) };
+                        myTile.PageLayouts.Add(new PageLayout(panel));
+                        await bandClient.TileManager.AddTileAsync(myTile);
+                    }
+                    //await bandClient.TileManager.RemoveTileAsync(myTileId);
 
                     var pOff = new Guid("6F5FD06E-BD37-4B71-B36C-3ED9D721F200");
                     var pOn = new Guid("5F5FD06E-BD37-4B71-B36C-3ED9D721F200");
@@ -123,13 +125,16 @@ namespace BandExampleAppWindows81.Model
                             CoreDispatcherPriority.Normal,
                             () =>
                             {
+                                var youCore = new YouCore();
                                 if (args.TileEvent.PageId == pOn)
                                 {
                                     Debug.WriteLine("On");
+                                    youCore.WemoOn();
                                 }
                                 else
                                 {
                                     Debug.WriteLine("Off");
+                                    youCore.WemoOff();
                                 }
                                 buttonPressedCount++;
                                 Debug.WriteLine($"{args.TileEvent.PageId} - {args.TileEvent.ElementId}");

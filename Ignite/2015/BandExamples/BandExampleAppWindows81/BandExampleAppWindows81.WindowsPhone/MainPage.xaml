@@ -12,6 +12,7 @@
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="On" Click="OnButton_OnClick"></Button>
             <Button Content="Off" Click="OffButton_OnClick"></Button>
+            <Button Content="Add Tile" Click="AddTile_OnClick"></Button>
             <Button Content="Track Accelerometer" Click="TrackAccel_OnClick">
                 <Button.Projection>
                     <PlaneProjection x:Name="PlaneProjection"/>

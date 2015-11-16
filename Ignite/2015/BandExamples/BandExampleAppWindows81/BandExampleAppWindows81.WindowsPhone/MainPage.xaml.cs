@@ -109,5 +109,10 @@ namespace BandExampleAppWindows81
             await BandBits.TrackAccelerometer();
             TxtThingThatHappened.Text = "Finished";
         }
+
+        private async void AddTile_OnClick(object sender, RoutedEventArgs e)
+        {
+            await BandBits.CreateTile();
+        }
     }
 }
