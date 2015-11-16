@@ -18,7 +18,8 @@ namespace BandExampleBackground
         {
             RawNotification notification = (RawNotification)taskInstance.TriggerDetails;
             var data = notification.Content;
-            NotifyBand(taskInstance.GetDeferral(), data,"title");
+            var dataSplit = data.Split('|');
+            NotifyBand(taskInstance.GetDeferral(), dataSplit[0],dataSplit[1]);
         }
 
         private async void NotifyBand(BackgroundTaskDeferral deferral, string message, string title)
