@@ -24,9 +24,14 @@ namespace YouCore.NET.Service
 
             var hub = NotificationHubClient
         .CreateClientFromConnectionString(key, "jordocore");
-            var toast = $"<toast><visual><binding template=\"ToastText02\"><text id=\"1\">{title}</text><text id=\"2\">{message}</text></binding></visual></toast>";
-            var result = await hub.SendWindowsNativeNotificationAsync(toast, new List<string>() { "JordoMain" });
+            //   var toast = $"<toast><visual><binding template=\"ToastText02\"><text id=\"1\">{title}</text><text id=\"2\">{message}</text></binding></visual></toast>";
+            //     var result = await hub.SendWindowsNativeNotificationAsync(message, new List<string>() { "JordoMain" });
 
+            var wins = new WindowsNotification($"{message}|{title}");
+
+            wins.Headers.Add("X-WNS-Type", "wns/raw");
+            var result = await hub.SendNotificationAsync(wins, new List<string>() { "JordoMain" });
+           
             return new XResult<bool>(true);
         }
     }
