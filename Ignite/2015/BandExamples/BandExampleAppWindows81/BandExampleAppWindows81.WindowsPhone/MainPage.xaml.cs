@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -16,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BandExampleApp.Model;
 using BandExampleAppWindows81.Model;
+using BandExampleBackground;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -65,6 +67,24 @@ namespace BandExampleAppWindows81
 
             Debug.WriteLine(command);
         }
+
+        async void _backgrounds()
+        {
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                task.Value.Unregister(true);
+            }
+
+            var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
+
+            var builder = new BackgroundTaskBuilder { Name = "BandBackroundNotifier", TaskEntryPoint = typeof(BandBackgroundNotifier).FullName };
+
+            var trigger = new PushNotificationTrigger(); 
+
+            builder.SetTrigger(trigger);
+            builder.Register();
+        }
+
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// </summary>
@@ -72,6 +92,8 @@ namespace BandExampleAppWindows81
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            _backgrounds();
+
             if (e.Parameter == null)
             {
                 return;

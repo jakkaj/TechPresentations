@@ -87,13 +87,13 @@ namespace BandExampleAppWindows81.Model
                     Debug.WriteLine($"FW: {fwVersion}");
                     Debug.WriteLine($"HW: {hwVersion}");
 
-                    Guid myTileId = new Guid("24408A60-13EB-46C2-9D24-F14BF6A033C6");
+                    Guid myTileId = new Guid("25508A60-13EB-46C2-9D24-F14BF6A033C6");
 
                     var tiles = await bandClient.TileManager.GetTilesAsync();
-
-                    if (tiles.ToList().FirstOrDefault(_ => _.TileId == myTileId) == null)
-                    {
-                        BandTile myTile = new BandTile(myTileId)
+                    await bandClient.TileManager.RemoveTileAsync(myTileId);
+                    // if (tiles.ToList().FirstOrDefault(_ => _.TileId == myTileId) == null)
+                    //{
+                    BandTile myTile = new BandTile(myTileId)
                         {
                             Name = "Demo Tile",
                             TileIcon = await LoadIcon("ms-appx:///Assets/SampleTileIconLarge.png"),
@@ -103,7 +103,7 @@ namespace BandExampleAppWindows81.Model
                         FilledPanel panel = new FilledPanel(button) { Rect = new PageRect(0, 0, 220, 150) };
                         myTile.PageLayouts.Add(new PageLayout(panel));
                         await bandClient.TileManager.AddTileAsync(myTile);
-                    }
+                   // }
                     //await bandClient.TileManager.RemoveTileAsync(myTileId);
 
                     var pOff = new Guid("6F5FD06E-BD37-4B71-B36C-3ED9D721F200");

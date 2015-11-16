@@ -8,7 +8,9 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.SpeechRecognition;
+using Windows.Networking.PushNotifications;
 using Windows.Storage;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -17,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.WindowsAzure.Messaging;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -49,6 +52,8 @@ namespace BandExampleAppWindows81
         /// <param name="e">Details about the launch request and process.</param>
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+
+            InitNotificationsAsync();
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -155,7 +160,7 @@ namespace BandExampleAppWindows81
                 }
 
                 rootFrame.Navigate(typeof(MainPage), resultText);
-                
+
             }
         }
 
@@ -172,6 +177,8 @@ namespace BandExampleAppWindows81
             rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
         }
+
+
 #endif
 
         /// <summary>
@@ -187,6 +194,24 @@ namespace BandExampleAppWindows81
 
             // TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+
+        private async void InitNotificationsAsync()
+        {
+            var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+
+            var hub = new NotificationHub("jordocore", "Endpoint=sb://youcoretest.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=qgiDGCCubNz0W2vXYnmNgY4Q86Y29+KncidfIfk8Qfg=");
+            var result = await hub.RegisterNativeAsync(channel.Uri, new List<string>() { "JordoMain" });
+
+            // Displays the registration ID so you know it was successful
+            if (result.RegistrationId != null)
+            {
+                var dialog = new MessageDialog("Registration successful: " + result.RegistrationId);
+                dialog.Commands.Add(new UICommand("OK"));
+                await dialog.ShowAsync();
+            }
+
         }
     }
 }
