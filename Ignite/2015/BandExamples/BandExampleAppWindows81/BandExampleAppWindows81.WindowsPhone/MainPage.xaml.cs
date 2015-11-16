@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BandExampleApp.Model;
+using BandExampleAppWindows81.Model;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,6 +36,16 @@ namespace BandExampleAppWindows81
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
+        public async void SetProjection(double x, double y, double z)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+             {
+                 PlaneProjection.RotationX = x * 100;
+                 PlaneProjection.RotationY = y * 100;
+                 PlaneProjection.RotationZ = z * 100;
+             });
+
+        }
 
         public async void DoCommand(string command)
         {
@@ -89,6 +101,13 @@ namespace BandExampleAppWindows81
         private async void OffButton_OnClick(object sender, RoutedEventArgs e)
         {
             await _youCore.WemoOff();
+        }
+
+        private async void TrackAccel_OnClick(object sender, RoutedEventArgs e)
+        {
+            TxtThingThatHappened.Text = "Acceleromoeter";
+            await BandBits.TrackAccelerometer();
+            TxtThingThatHappened.Text = "Finished";
         }
     }
 }

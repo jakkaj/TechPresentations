@@ -9,11 +9,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="On" Click="OnButton_OnClick"></Button>
             <Button Content="Off" Click="OffButton_OnClick"></Button>
+            <Button Content="Track Accelerometer" Click="TrackAccel_OnClick">
+                <Button.Projection>
+                    <PlaneProjection x:Name="PlaneProjection"/>
+                </Button.Projection>
+            </Button>
+            <TextBlock FontSize="32" x:Name="TxtThingThatHappened" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
         
-          <TextBlock FontSize="32" x:Name="TxtThingThatHappened" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        
     </Grid>
 </Page>
