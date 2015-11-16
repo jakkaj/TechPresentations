@@ -25,8 +25,9 @@ namespace BandExampleApp.Model
 
         async Task _sendMaker(string makerName)
         {
+            var guid = Guid.NewGuid();//cache buster
             var key = "b81-U_TxfxaNMSzC6sDFG";
-            var url = $"https://maker.ifttt.com/trigger/{makerName}/with/key/{key}";
+            var url = $"https://maker.ifttt.com/trigger/{makerName}/with/key/{key}?{guid}";
 
             var result = await _transferrer.Download(key, _getConfig(url));
         }
@@ -47,6 +48,9 @@ namespace BandExampleApp.Model
 
 
             };
+
+            config.Headers.Add("Cache-Control", "no-cache");
+            config.Headers.Add("Pragma", "no-cache");
 
             return config;
         }

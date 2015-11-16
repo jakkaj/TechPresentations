@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) 2012 Microsoft Corporation.  All rights reserved.
+    Use of this sample source code is subject to the terms of the Microsoft license 
+    agreement under which you licensed this sample source code and is provided AS-IS.
+    If you did not accept the terms of the license agreement, you are not authorized 
+    to use this sample source code.  For the terms of the license, please see the 
+    license agreement between you and Microsoft.-->
+<!-- 
+Note the 1.1 in the schema version instead of 1.0. This includes the 8.1
+PhraseTopic. The schema is used for better Intellisense support.
+-->
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.1">
+
+  <CommandSet xml:lang="en-GB">
+    <CommandPrefix>Core</CommandPrefix>
+    <Example> Core turn on </Example>
+    
+    <Command Name="TurnOnOrOff">
+      <Example> Core turn on </Example>
+      <ListenFor> Turn {onoff} </ListenFor>
+      <Feedback> Core Turning {onoff} ... </Feedback>
+      <Navigate/>
+    </Command>
+  
+    <PhraseList Label="onoff">
+      <Item> on </Item>
+      <Item> off </Item>
+    </PhraseList>
+    
+  </CommandSet>
+</VoiceCommands>

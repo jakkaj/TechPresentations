@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,14 +24,35 @@ namespace BandExampleAppWindows81
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public static MainPage Instance { get; set; }
         private YouCore _youCore = new YouCore();
         public MainPage()
         {
+            Instance = this;
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
+
+        public async void DoCommand(string command)
+        {
+
+            TxtThingThatHappened.Text = command;
+
+            if (command.ToLower().IndexOf("on") != -1)
+            {
+                await _youCore.WemoOn();
+            }
+            else
+            {
+                await _youCore.WemoOff();
+            }
+
+            TxtThingThatHappened.Text += " done";
+
+            Debug.WriteLine(command);
+        }
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// </summary>
@@ -38,6 +60,17 @@ namespace BandExampleAppWindows81
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (e.Parameter == null)
+            {
+                return;
+            }
+            var param = e.Parameter.ToString();
+            if (string.IsNullOrWhiteSpace(param))
+            {
+                return;
+            }
+            DoCommand(param);
+
             // TODO: Prepare page for display here.
 
             // TODO: If your application contains multiple pages, ensure that you are

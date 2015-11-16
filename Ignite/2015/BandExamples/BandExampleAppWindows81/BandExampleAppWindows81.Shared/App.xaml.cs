@@ -7,6 +7,8 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.SpeechRecognition;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -45,7 +47,7 @@ namespace BandExampleAppWindows81
         /// search results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -60,6 +62,20 @@ namespace BandExampleAppWindows81
             // just ensure that the window is active
             if (rootFrame == null)
             {
+
+                try
+                {
+                    Uri uri = new Uri("ms-appx:///VoiceCommandDefinition.xml");
+                    StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+                    await VoiceCommandManager.InstallCommandSetsFromStorageFileAsync(file);
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
@@ -104,6 +120,45 @@ namespace BandExampleAppWindows81
             // Ensure the current window is active
             Window.Current.Activate();
         }
+
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            // When a Voice Command activates the app, this method is going to 
+            // be called and OnLaunched is not. Because of that we need similar
+            // code to the code we have in OnLaunched
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame == null)
+            {
+                rootFrame = new Frame();
+                rootFrame.CacheSize = 1;
+                Window.Current.Content = rootFrame;
+                rootFrame.Navigate(typeof(MainPage));
+            }
+
+            Window.Current.Activate();
+
+            // For VoiceCommand activations, the activation Kind is ActivationKind.VoiceCommand
+            if (args.Kind == ActivationKind.VoiceCommand)
+            {
+                // since we know this is the kind, a cast will work fine
+                VoiceCommandActivatedEventArgs vcArgs = (VoiceCommandActivatedEventArgs)args;
+
+                var result = vcArgs.Result;
+                var resultText = result.Text;
+
+                if (MainPage.Instance != null)
+                {
+                    MainPage.Instance.DoCommand(resultText);
+                    return;
+                }
+
+                rootFrame.Navigate(typeof(MainPage), resultText);
+                
+            }
+        }
+
 
 #if WINDOWS_PHONE_APP
         /// <summary>
