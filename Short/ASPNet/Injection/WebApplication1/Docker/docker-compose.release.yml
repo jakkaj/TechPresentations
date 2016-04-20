@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  webapplication1:
+    build:
+      context: ..
+      dockerfile: Docker/Dockerfile.release
+      args:
+      - CONTAINER_PORT=${WEBAPPLICATION1_PORT}
+      - SERVER_URLS=http://*:${WEBAPPLICATION1_PORT}
+    ports:
+    - "${HOST_PORT}:${WEBAPPLICATION1_PORT}"
