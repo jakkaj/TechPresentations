@@ -15,7 +15,8 @@ namespace RoadService.Controllers
         public async Task<IHttpActionResult> Post([FromBody]MarkdownStuff.UrlModel value)
         {
             var result = await MarkdownStuff.GetMarkdown(value.Url);
-            return Content(HttpStatusCode.OK, result);
+            value.Result = result;
+            return Content(HttpStatusCode.OK, value);
 
         }
     }
