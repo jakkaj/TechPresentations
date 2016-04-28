@@ -1,0 +1,15 @@
+FROM jakkaj/jakkajtest
+
+COPY project.json /app/
+WORKDIR /app
+RUN ["dnu", "restore"]
+COPY . /app
+
+# default to running the container on port 5000
+ARG CONTAINER_PORT=5000
+ARG SERVER_URLS=http://*:$CONTAINER_PORT
+
+ENV SERVER.URLS $SERVER_URLS
+EXPOSE $CONTAINER_PORT
+
+ENTRYPOINT ["dnx", "-p", "project.json", "web"]
