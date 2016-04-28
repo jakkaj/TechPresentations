@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -25,7 +26,9 @@ namespace RoadConsole
 
         static async void _get(string url)
         {
-            Console.WriteLine(await RoadConsole.MarkdownGetter.GetMarkdown(url));
+            var result = await RoadConsole.MarkdownGetter.GetMarkdown(url);
+            File.WriteAllText("output.html", result);
+            Console.WriteLine(result);
         }
     }
 }
