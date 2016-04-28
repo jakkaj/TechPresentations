@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0-*",
+  "compilationOptions": {
+    "emitEntryPoint": true,
+    "debugType": "portable"
+  },
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.0-rc2-*"
+    },
+    "Newtonsoft.Json": "8.0.3"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50",
+        "dependencies": {
+        "System.Net.Http": "4.0.1-beta-23516"
+      }
+    }
+  }
+}

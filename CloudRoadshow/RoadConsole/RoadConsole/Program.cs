@@ -11,6 +11,11 @@ namespace RoadConsole
     {
         static void Main(string[] args)
         {
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Not enough things on the thing!");
+                return;
+            }
             var url = args[0];
             _get(url);
 
@@ -20,7 +25,7 @@ namespace RoadConsole
 
         static async void _get(string url)
         {
-            Console.WriteLine(await MarkdownGetter.GetMarkdown(url));
+            Console.WriteLine(await RoadConsole.MarkdownGetter.GetMarkdown(url));
         }
     }
 }
