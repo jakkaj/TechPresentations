@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RoadXamarin.Home.MainPage">
+ <StackLayout>
+   <Entry x:Name="ThisUrl" Text="https://raw.githubusercontent.com/jakkaj/xIOT/master/README.md"></Entry>
+   <Button Text="Click" Clicked="Button_OnClicked"></Button>
+   <WebView x:Name="MyBrowser" VerticalOptions="CenterAndExpand" HeightRequest="500"></WebView>
+ </StackLayout>
+</ContentPage>

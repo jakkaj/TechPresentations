@@ -8,8 +8,8 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <StackPanel HorizontalAlignment="Stretch">
-            <TextBox x:Name="Url" Text="https://raw.githubusercontent.com/jakkaj/xIOT/master/README.md"></TextBox>
-            <Button Click="ButtonBase_OnClick" Content="Get"></Button>
+            <TextBox Width="100" x:Name="Url" Text="https://raw.githubusercontent.com/jakkaj/xIOT/master/README.md"></TextBox>
+            <Button Click="ButtonBase_OnClick" Content="Get" Width="200"></Button>
             <WebBrowser x:Name="MyBrowser" HorizontalAlignment="Stretch" Height="600">
 
             </WebBrowser>
