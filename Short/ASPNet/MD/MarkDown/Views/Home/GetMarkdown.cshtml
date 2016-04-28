@@ -1,0 +1,36 @@
+﻿@inject Microsoft.AspNet.Hosting.IHostingEnvironment env
+@inject Microsoft.Extensions.PlatformAbstractions.IApplicationEnvironment app
+@inject Microsoft.Extensions.PlatformAbstractions.IRuntimeEnvironment run;
+@model WebApplication1.Model.UrlModel
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.5em;
+        }
+
+        table {
+            border: #888 solid 1px;
+            padding: 2px;
+            margin: 0;
+        }
+
+        tr {
+            margin: 0;
+        }
+
+            tr:nth-child(even) {
+                background-color: #eeeeee;
+            }
+    </style>
+</head>
+<body>
+
+
+    @Html.Raw(Model.Result)
+
+</body>
+</html>

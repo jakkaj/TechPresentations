@@ -1,0 +1,62 @@
+﻿@inject Microsoft.AspNet.Hosting.IHostingEnvironment env
+@inject Microsoft.Extensions.PlatformAbstractions.IApplicationEnvironment app
+@inject Microsoft.Extensions.PlatformAbstractions.IRuntimeEnvironment run;
+@model WebApplication1.Model.UrlModel
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.5em;
+        }
+
+        table {
+            border: #888 solid 1px;
+            padding: 2px;
+            margin: 0;
+        }
+
+        tr {
+            margin: 0;
+        }
+
+            tr:nth-child(even) {
+                background-color: #eeeeee;
+            }
+    </style>
+</head>
+<body>
+    <h3>Helloooo There!</h3>
+
+
+    <form asp-controller="Home" asp-action="GetMarkdown" method="post" class="form-horizontal" role="form">
+        <input asp-for="Url" />
+        <input type="submit" class="btn btn-default" value="Convert" title="Conver an MD URL" />
+    </form>
+
+
+    <table>
+        @if (env != null)
+            {
+            <tr><td>Environment Name</td><td><strong>@env.EnvironmentName</strong></td></tr>
+        }
+        @if (app != null)
+            {
+            <tr><td>Runtime Framework</td><td><strong>@app.RuntimeFramework</strong></td></tr>
+                <tr><td>Application Name</td><td><strong>@app.ApplicationName</strong></td></tr>
+                <tr><td>Application Ver</td><td><strong>@app.ApplicationVersion</strong></td></tr>
+                <tr><td>App Path</td><td><strong>@app.ApplicationBasePath</strong></td></tr>
+        }
+        @if (run != null)
+            {
+            <tr><td>Operating System</td><td><strong>@run.OperatingSystem</strong></td></tr>
+                <tr><td>O/S Version</td> <td><strong>@run.OperatingSystemVersion</strong></td></tr>
+                <tr><td>Runtime Type</td> <td><strong>@run.RuntimeType</strong></td></tr>
+                <tr><td>Runtime Version</td><td><strong>@run.RuntimeVersion</strong></td></tr>
+                <tr><td>Runtime Arch</td><td><strong>@run.RuntimeArchitecture</strong></td></tr>
+        }
+    </table>
+</body>
+</html>
