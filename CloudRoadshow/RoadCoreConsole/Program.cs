@@ -21,7 +21,7 @@ namespace ConsoleApplication
         static async void _get(string url)
         {
              var result = await RoadConsole.MarkdownGetter.GetMarkdown(url);
-             
+             System.IO.File.WriteAllText("Output.html", result);
              Console.WriteLine(result);
         }
     }
