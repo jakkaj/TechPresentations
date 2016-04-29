@@ -68,4 +68,12 @@ namespace RoadService.Demo
             public string Result { get; set; }
         }
     }
+
+	public class MarkDownException : Exception
+    {
+        public MarkDownException()
+        {
+
+        }
+    }
 }
