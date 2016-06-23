@@ -1,0 +1,18 @@
+﻿{
+  "version": "1.0.0-*",
+  "dependencies": {
+    
+    
+  },
+  "frameworks": {
+    "net452": {
+      "dependencies": {
+        "System.IdentityModel.Tokens.Jwt": "4.0.2.206221351",
+        "Microsoft.IdentityModel.Protocol.Extensions" :  "1.0.2.206221351"
+      },
+      "frameworkAssemblies": {
+        "System.IdentityModel": "4.0.0.0"
+      }
+    }
+  }  
+}
