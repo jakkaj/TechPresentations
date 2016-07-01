@@ -44,9 +44,6 @@
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="TestJWTFunctionClass">
-      <HintPath>..\TestJWTFunctionClass\bin\Debug\net452\TestJWTFunctionClass.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -74,6 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JWTNetTestBed\JWTNetTestBed.csproj">
+      <Project>{0ba02837-ff87-4c09-9583-fd77ddb68942}</Project>
+      <Name>JWTNetTestBed</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

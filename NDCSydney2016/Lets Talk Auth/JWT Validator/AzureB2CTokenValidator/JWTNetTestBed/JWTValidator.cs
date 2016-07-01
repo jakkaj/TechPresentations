@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.IdentityModel;
-using System.Runtime.InteropServices.ComTypes;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using Microsoft.IdentityModel.Protocols;
 
-namespace TestJWTFunctionClass
+namespace JWTNetTestBed
 {
     // This project can output the Class library as a NuGet Package.
     // To enable this option, right-click on the project and select the Properties menu item. In the Build tab select "Produce outputs on build".
