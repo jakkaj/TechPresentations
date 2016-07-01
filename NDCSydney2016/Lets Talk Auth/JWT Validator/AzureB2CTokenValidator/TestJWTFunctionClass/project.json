@@ -1,17 +1,17 @@
 ﻿{
   "version": "1.0.0-*",
   "dependencies": {
-    
-    
+    "Newtonsoft.Json": "8.0.3"
   },
   "frameworks": {
-    "net452": {
+    "net46": {
       "dependencies": {
         "System.IdentityModel.Tokens.Jwt": "4.0.2.206221351",
-        "Microsoft.IdentityModel.Protocol.Extensions" :  "1.0.2.206221351"
+        "Microsoft.IdentityModel.Protocol.Extensions": "1.0.2.206221351"
       },
       "frameworkAssemblies": {
-        "System.IdentityModel": "4.0.0.0"
+        "System.IdentityModel": "4.0.0.0",
+        "System.Net.Http": "4.0.0.0"
       }
     }
   }  
