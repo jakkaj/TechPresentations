@@ -8,6 +8,8 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" PointerPressed="UIElement_OnPointerPressed" x:Name="colorSpectrum">
-        <!--<InkCanvas x:Name="inkCanvas" />-->
+        <InkCanvas x:Name="inkCanvas" />
+        
+      
     </Grid>
 </Page>

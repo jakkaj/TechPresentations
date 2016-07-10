@@ -29,9 +29,9 @@ namespace CoreAuthenticationServer
     public class Startup
     {
         // The ACR claim is used to indicate which policy was executed
-        public const string AcrClaimType = "http://schemas.microsoft.com/claims/authnclassreference";
-        public const string PolicyKey = "b2cpolicy";
-        public const string OIDCMetadataSuffix = "/.well-known/openid-configuration";
+        public static string AcrClaimType = "http://schemas.microsoft.com/claims/authnclassreference";
+        public static string PolicyKey = "b2cpolicy";
+        public static string OIDCMetadataSuffix = "/.well-known/openid-configuration";
 
         // App config settings
         private static string clientId;
@@ -95,6 +95,13 @@ namespace CoreAuthenticationServer
 
             var settings = adSettings.Value;
 
+            aadInstance = settings.AadInstance;
+            tenant = settings.Tenant;
+            OIDCMetadataSuffix = settings.OIDCMetadataSuffix;
+            SignUpPolicyId = settings.SignUpPolicyId;
+            SignInPolicyId = settings.SignInPolicyId;
+            ProfilePolicyId = settings.ProfilePolicyId;
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
                 AutomaticAuthenticate = true,
@@ -105,33 +112,69 @@ namespace CoreAuthenticationServer
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap = new Dictionary<string, string>();
 
-            var config = new ConfigurationManager<OpenIdConnectConfiguration>();
+          //  var config = new ConfigurationManager<OpenIdConnectConfiguration>();
+
+            var configMetadataUrl = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant, "/v2.0", OIDCMetadataSuffix,
+                new string[] {SignUpPolicyId, SignInPolicyId, ProfilePolicyId});
+
+            var r = new OpenIdConnectConfigurationRetriever();
+
+            var config = new ConfigurationManager<OpenIdConnectConfiguration>(configMetadataUrl, r);
+
 
             var connectOptions = new OpenIdConnectOptions()
             {
                 AutomaticAuthenticate = true,
-               
+              // Authority= configMetadataUrl,
                 ClientId = settings.ClientId,
                 ResponseType = "id_token",
                 AuthenticationScheme = "oidc",
                 CallbackPath = "/signin-oidc",
-                ConfigurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
-                    String.Format(CultureInfo.InvariantCulture, aadInstance, tenant, "/v2.0", OIDCMetadataSuffix),
-                    new string[] { settings.SignUpPolicyId, settings.SignInPolicyId, settings.ProfilePolicyId }),
+                ConfigurationManager = config,
 
             };
 
             connectOptions.Scope.Add("openid");
-            connectOptions.Scope.Add("profile");
-            connectOptions.Scope.Add("email");
+            //connectOptions.Scope.Add("profile");
+            //connectOptions.Scope.Add("email");
 
             connectOptions.Events = new OpenIdConnectEvents()
             {
-                OnAuthorizationCodeReceived = async _ =>
-                {
-                    var c = _;
-                } ,
-                OnRedirectToIdentityProvider= OnRedirectToIdentityProvider
+                
+
+                //OnTicketReceived = async y =>
+                //{
+                //    return base.
+                    
+                //    //var identity = y.Principal.Identity as ClaimsIdentity;
+                   
+                //    //var subject = identity.Claims.FirstOrDefault(z => z.Type == "sub");
+
+                //    //// Do something with subject like lookup in local users DB.
+                   
+                //    //var newIdentity = new ClaimsIdentity(
+                //    //    y.Options.SignInScheme,
+                //    //    "given_name",
+                //    //    "role");
+
+                //    //// Do some stuff to `newIdentity` like adding claims.
+
+                //    //// Create a new ticket with `newIdentity`.
+                    
+                //    ////.AuthenticationTicket = new AuthenticationTicket(
+                //    ////    new ClaimsPrincipal(newIdentity),
+                //    ////    y.AuthenticationTicket.Properties,
+                //    ////    y.AuthenticationTicket.AuthenticationScheme);
+
+                //    //await Task.FromResult(0);
+                //},
+                //OnTokenValidated = async y =>
+                //{
+                    
+                    
+
+                //}
+               
 
                 //OnAuthenticationValidated = async y =>
                 //{
@@ -217,10 +260,7 @@ namespace CoreAuthenticationServer
             });
         }
 
-        private async Task OnRedirectToIdentityProvider(RedirectContext redirectContext)
-        {
-           
-        }
+        
 
         //private async Task OnRedirectToIdentityProvider(RedirectToIdentityProviderNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
         //{

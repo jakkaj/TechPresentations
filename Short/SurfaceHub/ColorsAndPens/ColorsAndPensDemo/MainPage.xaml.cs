@@ -29,16 +29,16 @@ namespace ColorsAndPensDemo
         {
             this.InitializeComponent();
 
-            //inkCanvas.InkPresenter.InputDeviceTypes =
-            //     Windows.UI.Core.CoreInputDeviceTypes.Mouse |
-            //     Windows.UI.Core.CoreInputDeviceTypes.Pen;
+            inkCanvas.InkPresenter.InputDeviceTypes =
+                 Windows.UI.Core.CoreInputDeviceTypes.Mouse |
+                 Windows.UI.Core.CoreInputDeviceTypes.Pen;
 
-            //// Set initial ink stroke attributes.
-            //InkDrawingAttributes drawingAttributes = new InkDrawingAttributes();
-            //drawingAttributes.Color = Windows.UI.Colors.Black;
-            //drawingAttributes.IgnorePressure = false;
-            //drawingAttributes.FitToCurve = true;
-            //inkCanvas.InkPresenter.UpdateDefaultDrawingAttributes(drawingAttributes);
+            // Set initial ink stroke attributes.
+            InkDrawingAttributes drawingAttributes = new InkDrawingAttributes();
+            drawingAttributes.Color = Windows.UI.Colors.Black;
+            drawingAttributes.IgnorePressure = false;
+            drawingAttributes.FitToCurve = true;
+            inkCanvas.InkPresenter.UpdateDefaultDrawingAttributes(drawingAttributes);
         }
 
         private void UIElement_OnPointerPressed(object sender, PointerRoutedEventArgs e)
