@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreAuthenticationServer.Model.Contract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -11,39 +12,25 @@ namespace CoreAuthenticationServer.Controllers
 {
     public class HomeController : Controller
     {
-        
+        private readonly IOurTokenSevice _tokenService;
+
+        public HomeController(IOurTokenSevice tokenService)
+        {
+            _tokenService = tokenService;
+        }
+
         [Authorize]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
+            var user = HttpContext.User;
 
+            var c = user.Claims;
 
-            var idToken = await HttpContext.Authentication.GetTokenAsync("id_token");
+            var tokenSet = _tokenService.GetToken(c);
 
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View();
-        }
-
-        public IActionResult SignedIn()
-        {
-            return View();
+            //this is not the one we want to return, it is the token that proves we're logged in to B2C. 
+            //var idToken = await HttpContext.Authentication.GetTokenAsync("id_token");
+            return Ok(tokenSet);
         }
 
     }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CoreAuthenticationServer.Model
+﻿namespace CoreAuthenticationServer.Model.Entity
 {
     public class AdSettings
     {
