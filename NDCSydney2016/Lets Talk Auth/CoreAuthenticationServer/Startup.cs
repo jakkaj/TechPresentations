@@ -67,17 +67,71 @@ namespace CoreAuthenticationServer
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
 
+
+            aadInstance = Configuration["ADSettings:AadInstance"];
+            tenant = Configuration["ADSettings:Tenant"];
+            OIDCMetadataSuffix = Configuration["ADSettings:OIDCMetadataSuffix"];
+            SignUpPolicyId = Configuration["ADSettings:SignUpPolicyId"];
+            SignInPolicyId = Configuration["ADSettings:SignInPolicyId"];
+            ProfilePolicyId = Configuration["ADSettings:UserProfilePolicyId"];
+            clientId = Configuration["ADSettings:ClientId"];
+
+            var configMetadataUrl = String.Format(CultureInfo.InvariantCulture, aadInstance, 
+                tenant, "/v2.0", OIDCMetadataSuffix,
+                SignInPolicyId);
+            
+
+            services.Configure<OpenIdConnectOptions>(options =>
+            {
+                options.AutomaticAuthenticate = true;
+                options.SignInScheme = "Cookies";
+                options.ClientId = clientId;
+                options.Configuration = new OpenIdConnectConfiguration();
+                
+                options.ResponseType = "id_token token";
+                options.AuthenticationScheme = "oidc";
+                options.CallbackPath = "/signin-oidc";
+                options.ConfigurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(configMetadataUrl,
+                    new OpenIdConnectConfigurationRetriever());
+
+
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
+                options.Scope.Add("email");
+
+                options.Events = new OpenIdConnectEvents
+                {
+                    OnTicketReceived = context =>
+                    {
+                        // Get the ClaimsIdentity
+                        var identity = context.Principal.Identity as ClaimsIdentity;
+                        if (identity != null)
+                        {
+                            // Add the Name ClaimType. This is required if we want User.Identity.Name to actually return something!
+                            if (!context.Principal.HasClaim(c => c.Type == ClaimTypes.Name) &&
+                                            identity.HasClaim(c => c.Type == "name"))
+                                identity.AddClaim(new Claim(ClaimTypes.Name, identity.FindFirst("name").Value));
+                        }
+
+                        return Task.FromResult(0);
+                    }
+
+                };
+
+            });
+
             // Add framework services.
             services.AddMvc(x =>
             {
-                x.Filters.Add(new AuthorizeFilter(
-                    new AuthorizationPolicy(
-                        requirements: new List<RolesAuthorizationRequirement>()
-                        {
-                            new RolesAuthorizationRequirement(
-                                new List<string>() { "User" })
-                        },
-                        authenticationSchemes: new List<string>() { "Cookies", "oidc" })));
+                //x.Filters.Add(new AuthorizeFilter(
+                //    new AuthorizationPolicy(
+                //        requirements: new List<RolesAuthorizationRequirement>()
+                //        {
+                //            new RolesAuthorizationRequirement(
+                //                new List<string>() { "User" })
+                //        },
+
+                //        authenticationSchemes: new List<string>() { "Cookies", "oidc" })));
             });
 
             services.AddOptions();
@@ -93,114 +147,117 @@ namespace CoreAuthenticationServer
             IOptions<AdSettings> adSettings)
         {
 
-            var settings = adSettings.Value;
+            //  var settings = adSettings.Value;
 
-            aadInstance = settings.AadInstance;
-            tenant = settings.Tenant;
-            OIDCMetadataSuffix = settings.OIDCMetadataSuffix;
-            SignUpPolicyId = settings.SignUpPolicyId;
-            SignInPolicyId = settings.SignInPolicyId;
-            ProfilePolicyId = settings.ProfilePolicyId;
+            //  aadInstance = settings.AadInstance;
+            //  tenant = settings.Tenant;
+            //  OIDCMetadataSuffix = settings.OIDCMetadataSuffix;
+            //  SignUpPolicyId = settings.SignUpPolicyId;
+            //  SignInPolicyId = settings.SignInPolicyId;
+            //  ProfilePolicyId = settings.ProfilePolicyId;
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
-                AutomaticAuthenticate = true,
+               AutomaticAuthenticate = true,
                 CookieName = "MyApp",
                 CookieSecure = CookieSecurePolicy.Always,
                 AuthenticationScheme = "Cookies"
+
             });
 
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap = new Dictionary<string, string>();
+            //  JwtSecurityTokenHandler.DefaultInboundClaimTypeMap = new Dictionary<string, string>();
 
-          //  var config = new ConfigurationManager<OpenIdConnectConfiguration>();
+            ////  var config = new ConfigurationManager<OpenIdConnectConfiguration>();
 
-            var configMetadataUrl = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant, "/v2.0", OIDCMetadataSuffix,
-                new string[] {SignUpPolicyId, SignInPolicyId, ProfilePolicyId});
+            //  var configMetadataUrl = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant, "/v2.0", OIDCMetadataSuffix,
+            //      new string[] {SignUpPolicyId, SignInPolicyId, ProfilePolicyId});
 
-            var r = new OpenIdConnectConfigurationRetriever();
+            //  var r = new OpenIdConnectConfigurationRetriever();
 
-            var config = new ConfigurationManager<OpenIdConnectConfiguration>(configMetadataUrl, r);
+            //  var config = new ConfigurationManager<OpenIdConnectConfiguration>(configMetadataUrl, r);
 
 
-            var connectOptions = new OpenIdConnectOptions()
-            {
-                AutomaticAuthenticate = true,
-              // Authority= configMetadataUrl,
-                ClientId = settings.ClientId,
-                ResponseType = "id_token",
-                AuthenticationScheme = "oidc",
-                CallbackPath = "/signin-oidc",
-                ConfigurationManager = config,
+            //  var connectOptions = new OpenIdConnectOptions()
+            //  {
+            //      AutomaticAuthenticate = true,
+            //    // Authority= configMetadataUrl,
+            //      ClientId = settings.ClientId,
+            //      ResponseType = "id_token",
+            //      AuthenticationScheme = "oidc",
+            //      CallbackPath = "/signin-oidc",
+            //      ConfigurationManager = config,
 
-            };
+            //  };
 
-            connectOptions.Scope.Add("openid");
-            //connectOptions.Scope.Add("profile");
-            //connectOptions.Scope.Add("email");
+            //  connectOptions.Scope.Add("openid");
+            //  connectOptions.Scope.Add("profile");
+            //  connectOptions.Scope.Add("email");
 
-            connectOptions.Events = new OpenIdConnectEvents()
-            {
-                
+            //  connectOptions.Events = new OpenIdConnectEvents()
+            //  {
 
-                //OnTicketReceived = async y =>
-                //{
-                //    return base.
-                    
-                //    //var identity = y.Principal.Identity as ClaimsIdentity;
-                   
-                //    //var subject = identity.Claims.FirstOrDefault(z => z.Type == "sub");
 
-                //    //// Do something with subject like lookup in local users DB.
-                   
-                //    //var newIdentity = new ClaimsIdentity(
-                //    //    y.Options.SignInScheme,
-                //    //    "given_name",
-                //    //    "role");
+            //      //OnTicketReceived = async y =>
+            //      //{
+            //      //    return base.
 
-                //    //// Do some stuff to `newIdentity` like adding claims.
+            //      //    //var identity = y.Principal.Identity as ClaimsIdentity;
 
-                //    //// Create a new ticket with `newIdentity`.
-                    
-                //    ////.AuthenticationTicket = new AuthenticationTicket(
-                //    ////    new ClaimsPrincipal(newIdentity),
-                //    ////    y.AuthenticationTicket.Properties,
-                //    ////    y.AuthenticationTicket.AuthenticationScheme);
+            //      //    //var subject = identity.Claims.FirstOrDefault(z => z.Type == "sub");
 
-                //    //await Task.FromResult(0);
-                //},
-                //OnTokenValidated = async y =>
-                //{
-                    
-                    
+            //      //    //// Do something with subject like lookup in local users DB.
 
-                //}
-               
+            //      //    //var newIdentity = new ClaimsIdentity(
+            //      //    //    y.Options.SignInScheme,
+            //      //    //    "given_name",
+            //      //    //    "role");
 
-                //OnAuthenticationValidated = async y =>
-                //{
-                //    var identity = y.AuthenticationTicket.Principal.Identity as ClaimsIdentity;
+            //      //    //// Do some stuff to `newIdentity` like adding claims.
 
-                //    var subject = identity.Claims.FirstOrDefault(z => z.Type == "sub");
+            //      //    //// Create a new ticket with `newIdentity`.
 
-                //    // Do something with subject like lookup in local users DB.
+            //      //    ////.AuthenticationTicket = new AuthenticationTicket(
+            //      //    ////    new ClaimsPrincipal(newIdentity),
+            //      //    ////    y.AuthenticationTicket.Properties,
+            //      //    ////    y.AuthenticationTicket.AuthenticationScheme);
 
-                //    var newIdentity = new ClaimsIdentity(
-                //        y.AuthenticationTicket.AuthenticationScheme,
-                //        "given_name",
-                //        "role");
+            //      //    //await Task.FromResult(0);
+            //      //},
+            //      //OnTokenValidated = async y =>
+            //      //{
 
-                //    // Do some stuff to `newIdentity` like adding claims.
 
-                //    // Create a new ticket with `newIdentity`.
-                //    x.AuthenticationTicket = new AuthenticationTicket(
-                //        new ClaimsPrincipal(newIdentity),
-                //        y.AuthenticationTicket.Properties,
-                //        y.AuthenticationTicket.AuthenticationScheme);
 
-                //    await Task.FromResult(0);
-                //}
-            };
-            app.UseOpenIdConnectAuthentication(connectOptions);
+            //      //}
+
+
+            //      //OnAuthenticationValidated = async y =>
+            //      //{
+            //      //    var identity = y.AuthenticationTicket.Principal.Identity as ClaimsIdentity;
+
+            //      //    var subject = identity.Claims.FirstOrDefault(z => z.Type == "sub");
+
+            //      //    // Do something with subject like lookup in local users DB.
+
+            //      //    var newIdentity = new ClaimsIdentity(
+            //      //        y.AuthenticationTicket.AuthenticationScheme,
+            //      //        "given_name",
+            //      //        "role");
+
+            //      //    // Do some stuff to `newIdentity` like adding claims.
+
+            //      //    // Create a new ticket with `newIdentity`.
+            //      //    x.AuthenticationTicket = new AuthenticationTicket(
+            //      //        new ClaimsPrincipal(newIdentity),
+            //      //        y.AuthenticationTicket.Properties,
+            //      //        y.AuthenticationTicket.AuthenticationScheme);
+
+            //      //    await Task.FromResult(0);
+            //      //}
+            //  };
+            var options = app.ApplicationServices.GetRequiredService<IOptions<OpenIdConnectOptions>>();
+            app.UseOpenIdConnectAuthentication(options.Value);
+
 
             //OpenIdConnectAuthenticationOptions options = new OpenIdConnectAuthenticationOptions
             //{

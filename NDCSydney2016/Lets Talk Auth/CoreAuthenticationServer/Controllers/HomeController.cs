@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreAuthenticationServer.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
             return View();
@@ -31,5 +33,11 @@ namespace CoreAuthenticationServer.Controllers
         {
             return View();
         }
+
+        public IActionResult SignedIn()
+        {
+            return View();
+        }
+
     }
 }
