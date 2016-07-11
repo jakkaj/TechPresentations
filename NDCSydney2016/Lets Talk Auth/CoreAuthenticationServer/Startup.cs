@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +37,7 @@ namespace CoreAuthenticationServer
         // App config settings
         private static string clientId;
         private static string aadInstance;
-        private static string tenant ;
+        private static string tenant;
         private static string redirectUri;
 
         // B2C policy identifiers
@@ -54,7 +55,7 @@ namespace CoreAuthenticationServer
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
-          
+
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -62,11 +63,18 @@ namespace CoreAuthenticationServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             services.AddAuthentication(options =>
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
             });
 
+            //services.Configure<MvcOptions>(options =>
+            //{
+            //    options.Filters.Add(new RequireHttpsAttribute());
+            //});
 
             aadInstance = Configuration["ADSettings:AadInstance"];
             tenant = Configuration["ADSettings:Tenant"];
@@ -76,28 +84,38 @@ namespace CoreAuthenticationServer
             ProfilePolicyId = Configuration["ADSettings:UserProfilePolicyId"];
             clientId = Configuration["ADSettings:ClientId"];
 
-            var configMetadataUrl = String.Format(CultureInfo.InvariantCulture, aadInstance, 
+            var configMetadataUrl = String.Format(CultureInfo.InvariantCulture, aadInstance,
                 tenant, "/v2.0", OIDCMetadataSuffix,
                 SignInPolicyId);
-            
+
 
             services.Configure<OpenIdConnectOptions>(options =>
             {
                 options.AutomaticAuthenticate = true;
+                //options.AutomaticChallenge = true;
+
                 options.SignInScheme = "Cookies";
                 options.ClientId = clientId;
                 options.Configuration = new OpenIdConnectConfiguration();
-                
-                options.ResponseType = "id_token token";
+
+                options.ResponseType = "id_token";
                 options.AuthenticationScheme = "oidc";
                 options.CallbackPath = "/signin-oidc";
                 options.ConfigurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(configMetadataUrl,
                     new OpenIdConnectConfigurationRetriever());
+                options.GetClaimsFromUserInfoEndpoint = true;
+                options.SaveTokens = true;  
+
 
 
                 options.Scope.Add("openid");
-                options.Scope.Add("profile");
-                options.Scope.Add("email");
+                //options.Scope.Add("profile");
+                //options.Scope.Add("email");
+
+                //options.TokenValidationParameters = new TokenValidationParameters
+                //{
+                //    NameClaimType = "name",
+                //};
 
                 options.Events = new OpenIdConnectEvents
                 {
@@ -107,195 +125,131 @@ namespace CoreAuthenticationServer
                         var identity = context.Principal.Identity as ClaimsIdentity;
                         if (identity != null)
                         {
+                            var oid = identity.Claims.FirstOrDefault(
+                                _ => _.Type == "oid").Value;
+
+                            var claim = identity.Claims.FirstOrDefault(_ => _.Type == ClaimTypes.NameIdentifier);
+
+                            if (claim != null)
+                            {
+                                identity.RemoveClaim(claim);
+                            }
+
+                            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, oid));
+
+                            // await context.HttpContext.Authentication.SignInAsync("Cookies", context.Principal);
+                            // //await context.HttpContext.Authentication.SignInAsync("oidc", context.Principal);
+
+                            // context.HttpContext.User = context.Principal;
+
+                            // var c = context.Request.HttpContext;
+                            // //identity.Label = "Testing 1232";
+
+                            // var newIdentity = new ClaimsIdentity(
+                            //context.Ticket.AuthenticationScheme,
+                            //"given_name",
+                            //"role");
+
+                            //      context.Ticket = new AuthenticationTicket(
+                            //new ClaimsPrincipal(newIdentity),
+                            //context.Ticket.Properties,
+                            //"Cookies");
+
+                            //var oid = identity.Claims.FirstOrDefault(
+                            //    _ => _.Type == "oid").Value;
+
+                            //var claim = identity.Claims.FirstOrDefault(_ => _.Type == ClaimTypes.NameIdentifier);
+                            //if (claim != null)
+                            //{
+                            //    identity.RemoveClaim(claim);
+                            //}
+
+                            //var claimsub = identity.Claims.FirstOrDefault(_ => _.Type == "sub");
+                            //if (claimsub != null)
+                            //{
+                            //    identity.RemoveClaim(claim);
+                            //}
+
+                            //identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, oid));
+                            //identity.AddClaim(new Claim("sub", oid));
+
+                            //identity.AddClaim(new Claim(ClaimTypes.Name, "Jordan knight"));
+                            //identity.AddClaim(new Claim(ClaimTypes.Role, "User"));
+                            //var c = "1";
+
                             // Add the Name ClaimType. This is required if we want User.Identity.Name to actually return something!
-                            if (!context.Principal.HasClaim(c => c.Type == ClaimTypes.Name) &&
-                                            identity.HasClaim(c => c.Type == "name"))
-                                identity.AddClaim(new Claim(ClaimTypes.Name, identity.FindFirst("name").Value));
+                            //if (!context.Principal.HasClaim(c => c.Type == ClaimTypes.Name) &&
+                            //                identity.HasClaim(c => c.Type == "name"))
+                            //    identity.AddClaim(new Claim(ClaimTypes.Name, identity.FindFirst("name").Value));
+                            //if (!context.Principal.HasClaim(c => c.Type == ClaimTypes.NameIdentifier) &&
+                            //                identity.HasClaim(c => c.Type == "name"))
+                            //    identity.AddClaim(new Claim(ClaimTypes.Name, identity.FindFirst("name").Value));
+                            //context.HttpContext.User = context.Principal;
+                            //await context.HttpContext.Authentication.SignInAsync("Cookies", context.Principal);
                         }
 
                         return Task.FromResult(0);
-                    }
+
+
+                    },
+                    OnTokenValidated = async context =>
+                    {
+                        var t = context.SecurityToken;
+                    },
+
 
                 };
 
             });
 
             // Add framework services.
-            services.AddMvc(x =>
-            {
-                //x.Filters.Add(new AuthorizeFilter(
-                //    new AuthorizationPolicy(
-                //        requirements: new List<RolesAuthorizationRequirement>()
-                //        {
-                //            new RolesAuthorizationRequirement(
-                //                new List<string>() { "User" })
-                //        },
+            services.AddMvc();
+            //.AddMvc(x =>
+            //{
+            //    x.Filters.Add(new XAuthorizeFilter(
+            //        new AuthorizationPolicy(
+            //            requirements: new List<RolesAuthorizationRequirement>()
+            //            {
+            //                new RolesAuthorizationRequirement(
+            //                    new List<string>() { "User" })
+            //            },
+            //            authenticationSchemes: new List<string>() { "Cookies", "oidc" })));
+            //});
 
-                //        authenticationSchemes: new List<string>() { "Cookies", "oidc" })));
-            });
+            //services.AddAuthorization(options =>
+            //{
 
+            //    //var policies = options.DefaultPolicy;
+
+            //    //options.AddPolicy("all", policy => policy.RequireClaim(ClaimTypes.NameIdentifier));
+            //    //options.DefaultPolicy = options.GetPolicy("all");
+            //    //options.AddPolicy("EmployeeOnly", policy => policy.RequireClaim("objectId"));
+            //});
+
+
+
+            //  services.AddIdentity<>()
             services.AddOptions();
             services.Configure<AdSettings>(Configuration.GetSection("ADSettings"));
 
 
-          
+
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, 
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
             IOptions<AdSettings> adSettings)
         {
+            app.UseCookieAuthentication(new CookieAuthenticationOptions());
 
-            //  var settings = adSettings.Value;
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap = new Dictionary<string, string>();
 
-            //  aadInstance = settings.AadInstance;
-            //  tenant = settings.Tenant;
-            //  OIDCMetadataSuffix = settings.OIDCMetadataSuffix;
-            //  SignUpPolicyId = settings.SignUpPolicyId;
-            //  SignInPolicyId = settings.SignInPolicyId;
-            //  ProfilePolicyId = settings.ProfilePolicyId;
-
-            app.UseCookieAuthentication(new CookieAuthenticationOptions()
-            {
-               AutomaticAuthenticate = true,
-                CookieName = "MyApp",
-                CookieSecure = CookieSecurePolicy.Always,
-                AuthenticationScheme = "Cookies"
-
-            });
-
-            //  JwtSecurityTokenHandler.DefaultInboundClaimTypeMap = new Dictionary<string, string>();
-
-            ////  var config = new ConfigurationManager<OpenIdConnectConfiguration>();
-
-            //  var configMetadataUrl = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant, "/v2.0", OIDCMetadataSuffix,
-            //      new string[] {SignUpPolicyId, SignInPolicyId, ProfilePolicyId});
-
-            //  var r = new OpenIdConnectConfigurationRetriever();
-
-            //  var config = new ConfigurationManager<OpenIdConnectConfiguration>(configMetadataUrl, r);
-
-
-            //  var connectOptions = new OpenIdConnectOptions()
-            //  {
-            //      AutomaticAuthenticate = true,
-            //    // Authority= configMetadataUrl,
-            //      ClientId = settings.ClientId,
-            //      ResponseType = "id_token",
-            //      AuthenticationScheme = "oidc",
-            //      CallbackPath = "/signin-oidc",
-            //      ConfigurationManager = config,
-
-            //  };
-
-            //  connectOptions.Scope.Add("openid");
-            //  connectOptions.Scope.Add("profile");
-            //  connectOptions.Scope.Add("email");
-
-            //  connectOptions.Events = new OpenIdConnectEvents()
-            //  {
-
-
-            //      //OnTicketReceived = async y =>
-            //      //{
-            //      //    return base.
-
-            //      //    //var identity = y.Principal.Identity as ClaimsIdentity;
-
-            //      //    //var subject = identity.Claims.FirstOrDefault(z => z.Type == "sub");
-
-            //      //    //// Do something with subject like lookup in local users DB.
-
-            //      //    //var newIdentity = new ClaimsIdentity(
-            //      //    //    y.Options.SignInScheme,
-            //      //    //    "given_name",
-            //      //    //    "role");
-
-            //      //    //// Do some stuff to `newIdentity` like adding claims.
-
-            //      //    //// Create a new ticket with `newIdentity`.
-
-            //      //    ////.AuthenticationTicket = new AuthenticationTicket(
-            //      //    ////    new ClaimsPrincipal(newIdentity),
-            //      //    ////    y.AuthenticationTicket.Properties,
-            //      //    ////    y.AuthenticationTicket.AuthenticationScheme);
-
-            //      //    //await Task.FromResult(0);
-            //      //},
-            //      //OnTokenValidated = async y =>
-            //      //{
-
-
-
-            //      //}
-
-
-            //      //OnAuthenticationValidated = async y =>
-            //      //{
-            //      //    var identity = y.AuthenticationTicket.Principal.Identity as ClaimsIdentity;
-
-            //      //    var subject = identity.Claims.FirstOrDefault(z => z.Type == "sub");
-
-            //      //    // Do something with subject like lookup in local users DB.
-
-            //      //    var newIdentity = new ClaimsIdentity(
-            //      //        y.AuthenticationTicket.AuthenticationScheme,
-            //      //        "given_name",
-            //      //        "role");
-
-            //      //    // Do some stuff to `newIdentity` like adding claims.
-
-            //      //    // Create a new ticket with `newIdentity`.
-            //      //    x.AuthenticationTicket = new AuthenticationTicket(
-            //      //        new ClaimsPrincipal(newIdentity),
-            //      //        y.AuthenticationTicket.Properties,
-            //      //        y.AuthenticationTicket.AuthenticationScheme);
-
-            //      //    await Task.FromResult(0);
-            //      //}
-            //  };
             var options = app.ApplicationServices.GetRequiredService<IOptions<OpenIdConnectOptions>>();
             app.UseOpenIdConnectAuthentication(options.Value);
 
-
-            //OpenIdConnectAuthenticationOptions options = new OpenIdConnectAuthenticationOptions
-            //{
-            //    // These are standard OpenID Connect parameters, with values pulled from web.config
-            //    ClientId = clientId,
-            //    RedirectUri = redirectUri,
-            //    PostLogoutRedirectUri = redirectUri,
-            //    Notifications = new OpenIdConnectAuthenticationNotifications
-            //    {
-            //        AuthenticationFailed = AuthenticationFailed,
-            //        RedirectToIdentityProvider = OnRedirectToIdentityProvider,
-            //        AuthorizationCodeReceived = AuthorizationCodeReceived,
-            //        SecurityTokenReceived = SecurityTokenReceived,
-            //        SecurityTokenValidated = SecurityTokenValidated
-
-
-            //    },
-            //    Scope = "openid",
-            //    ResponseType = "id_token",
-
-            //    // The PolicyConfigurationManager takes care of getting the correct Azure AD authentication
-            //    // endpoints from the OpenID Connect metadata endpoint. It is included in the PolicyAuthHelpers folder.
-            //    // The first parameter is the metadata URL of your B2C directory.
-            //    // The second parameter is an array of the policies that your app will use.
-            //    ConfigurationManager = new PolicyConfigurationManager(
-            //       String.Format(CultureInfo.InvariantCulture, aadInstance, tenant, "/v2.0", OIDCMetadataSuffix),
-            //       new string[] { SignUpPolicyId, SignInPolicyId, ProfilePolicyId }),
-
-            //    // This piece is optional. It is used to display the user's name in the navigation bar.
-            //    TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        NameClaimType = "name",
-            //    },
-            //};
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            
 
             if (env.IsDevelopment())
             {
@@ -317,7 +271,7 @@ namespace CoreAuthenticationServer
             });
         }
 
-        
+
 
         //private async Task OnRedirectToIdentityProvider(RedirectToIdentityProviderNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
         //{
