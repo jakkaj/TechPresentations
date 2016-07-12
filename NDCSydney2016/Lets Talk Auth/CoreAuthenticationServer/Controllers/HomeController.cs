@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreAuthenticationServer.Model.Contract;
@@ -20,7 +21,7 @@ namespace CoreAuthenticationServer.Controllers
         }
 
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var user = HttpContext.User;
 
@@ -29,7 +30,8 @@ namespace CoreAuthenticationServer.Controllers
             var tokenSet = _tokenService.GetToken(c);
 
             //this is not the one we want to return, it is the token that proves we're logged in to B2C. 
-            //var idToken = await HttpContext.Authentication.GetTokenAsync("id_token");
+            var idToken = await HttpContext.Authentication.GetTokenAsync("id_token");
+            Debug.WriteLine($"B2C Token: {idToken}");
             return Ok(tokenSet);
         }
 
