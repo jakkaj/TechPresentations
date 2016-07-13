@@ -18,7 +18,7 @@
     "CoreAuthenticationServer": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000",
+      "launchUrl": "http://localhost:6435",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

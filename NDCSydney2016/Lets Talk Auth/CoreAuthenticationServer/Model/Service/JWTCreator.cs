@@ -6,10 +6,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using CoreAuthenticationServer.Model.Contract;
 using CoreAuthenticationServer.Model.Entity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Protocol.Core.v3;
 
 namespace CoreAuthenticationServer.Model.Service
 {
@@ -43,11 +45,11 @@ namespace CoreAuthenticationServer.Model.Service
                 : new Lifetime(now.AddMinutes(-15), now.AddDays(1));
 
 
-            return _createToken(subject, lifeTime);
+            return _createToken(subject, lifeTime).Result;
 
         }
 
-        string _createToken(ClaimsIdentity subject, Lifetime lifeTime)
+        async Task<string> _createToken(ClaimsIdentity subject, Lifetime lifeTime)
         {
             using (var privateSigner = new RSACryptoServiceProvider())
             {
@@ -57,24 +59,19 @@ namespace CoreAuthenticationServer.Model.Service
                 var signingCredentials = new SigningCredentials(new RsaSecurityKey(privateSigner),
                     SecurityAlgorithms.RsaSha256Signature);
 
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = subject,
-                    Issuer = _getValueIssuer(),
-                    Audience = _getValidAudience(),
-                    IssuedAt = lifeTime.Created,
-                    Expires = lifeTime.Expires,
-                    NotBefore = lifeTime.Created,
-                    SigningCredentials = signingCredentials,
-                };
+                var jwt = new JwtSecurityToken(
+                    issuer : _getValueIssuer(), 
+                    audience: _getValidAudience(), 
+                    claims: subject.Claims, 
+                    notBefore: lifeTime.Created,
+                    expires: lifeTime.Expires, 
+                    signingCredentials: signingCredentials
 
+                    );
 
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-
-                //var tokenString = tokenHandler.WriteToken(token);
-                return "";
+                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+                
+                return encodedJwt;
             }
                
         }
